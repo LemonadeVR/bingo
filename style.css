@@ -17,7 +17,7 @@ html {
   grid-template-rows: repeat(6, 75px);
   width: 400px;
   height: 480px;
-	gap: 5px;
+  gap: 5px;
 }
 
 .tiles {
@@ -29,4 +29,7 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: all 0.5s;
+  transform: scale(1);
+  user-select: none;
 }
