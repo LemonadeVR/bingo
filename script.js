@@ -10,7 +10,6 @@ const bingoList = [
   "Dealer's Den",
   'Art Prints',
   'Fursuit Maker Booth',
-  'Tail Accessories',
   'Hand Paws',
   'Furry Pins',
   'Fursuit Dance Competition',
@@ -69,6 +68,12 @@ function item(array) {
   return array[0];
 }
 
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 const fh = item(['>','','','','','','','','','','']);
 const mh = item([':',';',':']);
 const sh = item([')','3','>',']','}']);
@@ -92,6 +97,8 @@ for (let i = 0; i < 30; i++) {
 		} else {
 			currentTile.innerHTML = '';
 		}
+
+		const currentTileElement = getTile(i);
 	} else {
 		if (i == 17) {
 			currentTile.innerHTML = freeSpace;
@@ -104,4 +111,11 @@ for (let i = 0; i < 30; i++) {
 	getBoard.appendChild(currentTile);
 
 	console.log(currentTile);
+}
+
+for (let i = 5; i < 30; i++) {
+	getTile(i).addEventListener('mousedown', (event) => {
+  	event.target.style.transform = `scale(0.8) rotate(${getRandomInt(-25, 25)}deg)`;
+  	event.target.style.backgroundColor = '#495297';
+	});
 }
