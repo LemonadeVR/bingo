@@ -69,7 +69,7 @@ function item(array) {
   return array[0];
 }
 
-const fh = item(['>','|','','','','','','','','','','']);
+const fh = item(['>','','','','','','','','','','']);
 const mh = item([':',';',':']);
 const sh = item([')','3','>',']','}']);
 
