@@ -49,6 +49,9 @@ const bingoList = [
 
 
 
+const tileClicked = [];
+let check = false;
+
 function getTile(num) {
 	return document.getElementById(`tile${num}`);
 }
@@ -56,14 +59,15 @@ function getTile(num) {
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]]; // Swap elements using destructuring assignment
+    [array[i], array[j]] = [array[j], array[i]];
   }
   return array;
 }
+
 function item(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]]; // Swap elements using destructuring assignment
+    [array[i], array[j]] = [array[j], array[i]];
   }
   return array[0];
 }
@@ -73,6 +77,10 @@ function getRandomInt(min, max) {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+setTimeout(() => {
+	getBoard.style.transform = 'translate(0px)';
+}, 100);
 
 const fh = item(['>','','','','','','','','','','']);
 const mh = item([':',';',':']);
@@ -104,18 +112,64 @@ for (let i = 0; i < 30; i++) {
 			currentTile.innerHTML = freeSpace;
 			currentTile.style.fontSize = '30px';
 		} else {
-			currentTile.innerHTML = list[i];
+			//currentTile.innerHTML = list[i];
+			currentTile.innerHTML = i;
 		}
 	}
-	
+
+	tileClicked[i] = false;
+
 	getBoard.appendChild(currentTile);
 
 	console.log(currentTile);
 }
 
 for (let i = 5; i < 30; i++) {
-	getTile(i).addEventListener('mousedown', (event) => {
-  	event.target.style.transform = `scale(0.8) rotate(${getRandomInt(-25, 25)}deg)`;
-  	event.target.style.backgroundColor = '#495297';
-	});
+  getTile(i).addEventListener('mousedown', (event) => {
+    tileClicked[i] = true;
+    event.target.style.transform = `scale(0.8) rotate(${getRandomInt(-25, 25)}deg)`;
+    event.target.style.backgroundColor = '#495297';
+    check = true;
+
+    if (check) {
+      check = false;
+
+      for (let i = 0; i < pw.length; i++) {
+        let win = true;
+
+        for (let j = 0; j < pw[i].length; j++) {
+          if (!tileClicked[pw[i][j]]) {
+            win = false;
+            break;
+          }
+        }
+
+        if (win) {
+          for (let k = 0; k < 5; k++) {
+            getTile(pw[i][k]).style.backgroundColor = '#499756';
+            getTile(pw[i][k]).style.color = '#ffffff';
+						getTile(pw[i][k]).style.transform = 'scale(1)';
+          }
+        }
+      }
+    }
+
+  });
 }
+
+const pw = [
+	[5,6,7,8,9],
+	[10,11,12,13,14],
+	[15,16,17,18,19],
+	[20,21,22,23,24],
+	[25,26,27,28,29],
+
+	[5,10,15,20,25],
+	[6,11,16,21,26],
+	[7,12,17,22,27],
+	[8,13,18,23,28],
+	[9,14,19,24,29],
+
+	[5,11,17,23,29],
+	[9,13,17,21,25]
+];
