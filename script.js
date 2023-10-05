@@ -112,8 +112,8 @@ for (let i = 0; i < 30; i++) {
 			currentTile.innerHTML = freeSpace;
 			currentTile.style.fontSize = '30px';
 		} else {
-			//currentTile.innerHTML = list[i];
-			currentTile.innerHTML = i;
+			currentTile.innerHTML = list[i];
+			//currentTile.innerHTML = i;
 		}
 	}
 
